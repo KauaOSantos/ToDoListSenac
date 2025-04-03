@@ -8,44 +8,65 @@ btnTarefa.addEventListener("click", ()=>{
 class Tarefa {
     constructor(titulo) {
         this.titulo = titulo;
-        this.addEventoTarefa;
-        
-        // Ajustar essa parte de baixo para que 
-        alterarStatus(tarefa){
-            const statusTarefa = ['default', 'feito', 'incompleto', 'nao-feito'];
-            let valorInput = tarefa.querySelector('input');
-            let statusAtual = statusTarefa.indexOf(valorInput.value);
-        
-            let proximoStatus = (statusAtual + 1 ) % statusTarefa.length;
-            valorInput.value = statusTarefa[proximoStatus];
-        
-            statusTarefa.forEach(statusAtual => {
-                tarefa.classList.remove(statusAtual)
-            })
-        
-            tarefa.classList.add(statusTarefa[proximoStatus])
-            console.log(valorInput)
-    }
-    // ajustar aqui tbm
-    add
-        this.btnTarefa = this.tarefa.querySelector(".btnTarefa"); 
         this.statusTarefa = ['default', 'feito', 'incompleto', 'nao-feito'];
-        this.valorInput = this.tarefa.querySelector('input');
-        this.btnTarefa.addEventListener("click", () => this.alterarStatus());
+
+        this.tarefa = document.createElement("div");
+        this.tarefa.classList.add("tarefa");
+
+        this.tituloElemento = document.createElement("h2");
+        this.tituloElemento.textContent = this.titulo;
+
+        this.btnTarefa = document.createElement("button");
+        this.btnTarefa.classList.add("btnTarefa");
+
+        this.valorInput = document.createElement("input");
+        this.valorInput.type = "hidden";
+        this.valorInput.value = "default";
+
+        this.tarefa.appendChild(this.tituloElemento);
+        this.tarefa.appendChild(this.btnTarefa);
+        this.tarefa.appendChild(this.valorInput);
+
+        this.btnTarefa.addEventListener("click", () => {
+            this.alterarStatus();
+            toastr.info(`Status da tarefa "${this.titulo}" alterado!`);
+        });
     }
 
     alterarStatus() {
         let statusAtual = this.statusTarefa.indexOf(this.valorInput.value);
         let proximoStatus = (statusAtual + 1) % this.statusTarefa.length;
         this.valorInput.value = this.statusTarefa[proximoStatus];
+
         this.statusTarefa.forEach(status => {
             this.tarefa.classList.remove(status);
         });
 
         this.tarefa.classList.add(this.statusTarefa[proximoStatus]);
+    }
 
-        console.log(this.valorInput);
+    getElemento() {
+        return this.tarefa;
     }
 }
-const elementoTarefa = document.querySelector(".tarefa");
-const minhaTarefa = new Tarefa(elementoTarefa);
+
+const form = document.forms["formAddTarefa"];
+const inputTarefa = document.getElementById("inputTarefa");
+const listaTarefa = document.getElementById("listaTarefa");
+
+form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    let titulo = inputTarefa.value.trim();
+    if (titulo === "") {
+        toastr.error("Por favor, digite uma descrição para a tarefa.");
+        return;
+    }
+
+    let novaTarefa = new Tarefa(titulo);
+    listaTarefa.appendChild(novaTarefa.getElemento());
+
+    toastr.success(`Tarefa "${titulo}" adicionada com sucesso!`);
+
+    inputTarefa.value = ""; 
+});

@@ -6,13 +6,13 @@
     text-decoration: none;
 }
 
-body{
+body {
     background: #292a46;
     color: #ecedff;
     font-family: sans-serif;
 }
 
-h1{
+h1 {
     display: block;
     position: relative;
     z-index: 1;
@@ -21,7 +21,7 @@ h1{
     font-weight: 500;
 }
 
-h1::before{
+h1::before {
     content: "";
     position: absolute;
     width: 20px;
@@ -34,8 +34,8 @@ h1::before{
     left: 0%;
 }
 
-form{
-    margin: 10px 0;
+form {
+    margin: 10px 20px;
     background-color: #484da9;
     padding: 10px 15px;
     border-radius: 18px;
@@ -45,40 +45,48 @@ form{
     justify-content: space-between;
 }
 
-form input{
+form input {
     border: none;
     border-radius: 12px;
     background: #979cf5;
     padding: 13px 10px;
 }
-form button{
+
+form button {
     background: linear-gradient(180deg, #979cf5, #292a46);
     box-shadow: 0 4px 4px 0 rgb(0,0,0.25);
     border: none;
     border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    position: relative;
 }
 
-form button div{
+form button div {
+    position: absolute;
     width: 25px;
     height: 8px;
     background-color: #ecedff;
     border-radius: 8px;
 }
 
-form button div:first-child{
-    rotate: 90deg;
-    position: relative;
-    top: 50%;
-    transform: translateX(-50%);
+form button div:first-child {
+    transform: rotate(90deg);
 }
 
-#listaTarefa{
+#btnAddTarefa {
+    width: 50px;
+    height: 50px;
+}
+
+#listaTarefa {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.tarefa{
+.tarefa {
     padding: 12px 10px;
     background-color: #484DA9;
     border-radius: 18px;
@@ -90,32 +98,40 @@ form button div:first-child{
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin: 5px 20px;
 }
 
-.tarefa > h2{
-    font-size: 16px;
+#inputTarefa {
+    font-size: 18px;
+    color: #ECECEC;
+    height: 100%;
 }
 
-.tarefa > button{
+input::placeholder {
+    color: #ECECEC;
+    opacity: 0.8;
+}
+
+.tarefa > h2 {
+    font-size: 18px;
+}
+
+.tarefa > button {
     border: solid 4px;
     border-radius: 4px;
     background-color: #ecedff;
     padding: 15px;
-
     border-color: #979cf5;
 }
-.tarefa.feito > button{
+.tarefa.feito > button {
     border-color: #48a953;
     background: #48a953;
-
 }
-.tarefa.incompleto > button{
+.tarefa.incompleto > button {
     border-color: #f4f800;
     background: #f4f800;
-
 }
-.tarefa.nao-feito > button{
+.tarefa.nao-feito > button {
     border-color: #c95151;
     background: #c95151;
-
 }
